@@ -20,6 +20,7 @@
     "name": "Colors",
     "settings": [
       { "type": "color", "id": "color_background", "label": "Background", "default": "#F4F1EC" },
+      { "type": "checkbox", "id": "plaster_texture", "label": "Tadelakt plaster texture on background", "default": true },
       { "type": "color", "id": "color_surface", "label": "Surface", "default": "#EAE4DA" },
       { "type": "color", "id": "color_text", "label": "Text", "default": "#2A2622" },
       { "type": "color", "id": "color_muted", "label": "Muted text", "default": "#6E655B" },
