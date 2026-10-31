@@ -6,7 +6,7 @@
 {%- endcomment -%}
 {%- liquid
   capture trade_access
-    render 'trade-access'
+    render 'trade-access', product: product
   endcapture
   assign target = variant | default: product.selected_or_first_available_variant
 -%}

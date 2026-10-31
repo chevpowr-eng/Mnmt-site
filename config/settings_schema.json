@@ -46,9 +46,10 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "Prices are shown only to logged-in customers tagged with the trade tag below, or to customers assigned to a B2B company."
+        "content": "Tile prices are shown only to logged-in customers tagged with the trade tag below, or to customers assigned to a B2B company. Products with the public price tag (merch) are priced and sold to everyone."
       },
       { "type": "text", "id": "trade_tag", "label": "Approved trade customer tag", "default": "trade-approved" },
+      { "type": "text", "id": "public_price_tag", "label": "Product tag for items anyone can buy", "info": "Use for merch like hats and tees.", "default": "public-price" },
       { "type": "text", "id": "trade_gate_message", "label": "Message shown instead of price", "default": "Trade pricing available to approved designers and builders." },
       { "type": "page", "id": "trade_page", "label": "Trade program page" },
       { "type": "page", "id": "quote_page", "label": "Request a quote page" }

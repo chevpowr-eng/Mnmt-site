@@ -1,6 +1,6 @@
 {%- liquid
   capture trade_access
-    render 'trade-access'
+    render 'trade-access', product: product
   endcapture
   assign current_variant = product.selected_or_first_available_variant
   assign special_order = product.metafields.mnmt.special_order.value

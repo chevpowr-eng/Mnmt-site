@@ -1,12 +1,16 @@
 {%- comment -%}
-  Sets `trade_access` to true when the visitor may see trade pricing:
-  a customer on a B2B company, or a customer carrying the approved trade tag.
+  Decides whether the visitor may see prices and buy:
+  any product tagged with the public price tag (merch), or, for everything
+  else, a customer on a B2B company or carrying the approved trade tag.
+  Accepts: product (optional)
   Outputs "true" when allowed, so callers capture it:
-  {% capture trade_access %}{% render 'trade-access' %}{% endcapture %}
+  {% capture trade_access %}{% render 'trade-access', product: product %}{% endcapture %}
 {%- endcomment -%}
 {%- liquid
   assign trade_access = false
-  if customer
+  if product and product.tags contains settings.public_price_tag
+    assign trade_access = true
+  elsif customer
     if customer.b2b?
       assign trade_access = true
     elsif customer.tags contains settings.trade_tag
