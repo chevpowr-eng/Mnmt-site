@@ -1,6 +1,6 @@
 {%- comment -%}
-  Decides whether the visitor may see prices and buy:
-  any product tagged with the public price tag (merch), or, for everything
+  Decides whether the visitor may see prices and buy. With "Show prices to everyone"
+  on, everyone can. Otherwise only: any product tagged with the public price tag (merch), or, for everything
   else, a customer on a B2B company or carrying the approved trade tag.
   Accepts: product (optional)
   Outputs "true" when allowed, so callers capture it:
@@ -8,7 +8,9 @@
 {%- endcomment -%}
 {%- liquid
   assign trade_access = false
-  if product and product.tags contains settings.public_price_tag
+  if settings.public_pricing
+    assign trade_access = true
+  elsif product and product.tags contains settings.public_price_tag
     assign trade_access = true
   elsif customer
     if customer.b2b?

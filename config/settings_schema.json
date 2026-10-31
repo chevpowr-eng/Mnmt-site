@@ -132,6 +132,13 @@
         "content": "Tile prices are shown only to logged-in customers tagged with the trade tag below, or to customers assigned to a B2B company. Products with the public price tag (merch) are priced and sold to everyone."
       },
       {
+        "type": "checkbox",
+        "id": "public_pricing",
+        "label": "Show prices to everyone",
+        "info": "When on, anyone can see prices and buy. Turn off to limit tile pricing to approved specifiers.",
+        "default": true
+      },
+      {
         "type": "text",
         "id": "trade_tag",
         "label": "Approved trade customer tag",

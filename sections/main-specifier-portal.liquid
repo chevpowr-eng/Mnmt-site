@@ -3,7 +3,12 @@
   Approved trade accounts see this quarter's purchases and the cash reward earned.
   The reward rate comes from the theme setting "Specifier rewards > Cash back".
 {%- endcomment -%}
-{%- capture trade_access -%}{% render 'trade-access' %}{%- endcapture -%}
+{%- liquid
+  assign trade_access = 'false'
+  if customer.b2b? or customer.tags contains settings.trade_tag
+    assign trade_access = 'true'
+  endif
+-%}
 {%- assign rate = settings.reward_percent | default: 5 -%}
 
 <section class="section page-width page-width--narrow portal">
