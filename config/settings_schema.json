@@ -10,7 +10,7 @@
   {
     "name": "Brand",
     "settings": [
-      { "type": "image_picker", "id": "logo", "label": "Logo" },
+      { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Leave empty to use the logo from Settings > Brand." },
       { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 300, "step": 10, "unit": "px", "default": 140 },
       { "type": "image_picker", "id": "favicon", "label": "Favicon" },
       { "type": "text", "id": "tagline", "label": "Tagline", "default": "Handmade tile, stone and artisan plaster for the trade" }

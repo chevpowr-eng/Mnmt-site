@@ -1,9 +1,10 @@
 <header class="header">
   <div class="header__inner page-width">
     <a class="header__logo" href="{{ routes.root_url }}">
-      {%- if settings.logo != blank -%}
+      {%- assign logo = settings.logo | default: shop.brand.logo -%}
+      {%- if logo != blank -%}
         {{
-          settings.logo
+          logo
           | image_url: width: 600
           | image_tag: width: settings.logo_width, alt: shop.name, loading: 'eager'
         }}
