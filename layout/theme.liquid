@@ -34,6 +34,7 @@
 
     {% render 'css-variables' %}
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {% render 'specifier-data' %}
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
 
     {{ content_for_header }}

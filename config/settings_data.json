@@ -1,5 +1,9 @@
 {
-  "current": "Default",
+  "current": {
+    "trade_page": "become-a-specifier",
+    "quote_page": "request-a-quote",
+    "specifier_page": "specifier-portal"
+  },
   "presets": {
     "Default": {}
   }

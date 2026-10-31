@@ -181,8 +181,25 @@
         "label": "Specifier portal page"
       },
       {
+        "type": "checkbox",
+        "id": "require_specifier",
+        "label": "Require a specifier code to check out tile",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "allow_no_specifier",
+        "label": "Allow \"No designer on this project\"",
+        "info": "For builders ordering for their own jobs.",
+        "default": true
+      },
+      {
         "type": "paragraph",
         "content": "Tag a customer w9-on-file once you have their W-9 so the portal stops asking for one."
+      },
+      {
+        "type": "paragraph",
+        "content": "Add designers in Content > Metaobjects > Specifier (name and code). Put the same code in the designer's customer metafield \"Specifier code\" so their portal shows their link."
       }
     ]
   },

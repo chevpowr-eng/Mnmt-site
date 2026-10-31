@@ -1,0 +1,13 @@
+{%- comment -%}
+  Active specifiers (Shopify > Content > Metaobjects > Specifier) as CODE: name,
+  so the site can recognise a designer's link (?s=CODE) and show "Specified by".
+{%- endcomment -%}
+<script>
+  window.MNMT_SPECIFIERS = {
+    {%- for s in shop.metaobjects.specifier.values -%}
+      {%- if s.active.value == false -%}{%- continue -%}{%- endif -%}
+      {{ s.code.value | upcase | strip | json }}: {{ s.name.value | json }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  };
+  window.MNMT_OWN_SPECIFIER = {{ customer.metafields.mnmt.specifier_code.value | upcase | default: '' | json }};
+</script>

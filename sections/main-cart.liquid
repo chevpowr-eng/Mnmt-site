@@ -29,6 +29,50 @@
         </tbody>
       </table>
 
+
+      {%- liquid
+        assign needs_specifier = false
+        for item in cart.items
+          unless item.product.tags contains settings.public_price_tag
+            assign needs_specifier = true
+          endunless
+        endfor
+        assign spec_code = cart.attributes.Specifier | upcase | strip
+        assign spec_name = blank
+        for s in shop.metaobjects.specifier.values
+          assign this_code = s.code.value | upcase | strip
+          if this_code == spec_code and s.active.value != false
+            assign spec_name = s.name.value
+          endif
+        endfor
+      -%}
+      {%- if needs_specifier and settings.require_specifier -%}
+        <div class="specifier" data-specifier>
+          <input type="hidden" name="attributes[Specifier]" value="{% if spec_name != blank or spec_code == 'NONE' %}{{ cart.attributes.Specifier }}{% endif %}" data-specifier-value>
+          {%- if spec_name != blank -%}
+            <p class="specifier__credited" data-specifier-credited>
+              Specified by <strong>{{ spec_name }}</strong>
+              <button type="button" class="link-button" data-specifier-change>Change</button>
+            </p>
+          {%- endif -%}
+          <div class="specifier__editor" data-specifier-editor{% if spec_name != blank %} hidden{% endif %}>
+            <label class="field">
+              <span>Specifier code (from your designer)</span>
+              <input class="input specifier__input" type="text" autocomplete="off" autocapitalize="characters"
+                value="{% if spec_code != 'NONE' %}{{ spec_code }}{% endif %}" data-specifier-input>
+            </label>
+            <p class="specifier__status" data-specifier-status aria-live="polite"></p>
+            {%- if settings.allow_no_specifier -%}
+              <label class="specifier__none">
+                <input type="checkbox" data-specifier-none{% if spec_code == 'NONE' %} checked{% endif %}>
+                No designer on this project
+              </label>
+            {%- endif -%}
+          </div>
+          <p class="specifier__error" data-specifier-error hidden>Enter your designer's specifier code to check out.</p>
+        </div>
+      {%- endif -%}
+
       <label class="field">
         <span>Order notes (project name, delivery window, site contact)</span>
         <textarea class="input" name="note" rows="3">{{ cart.note }}</textarea>

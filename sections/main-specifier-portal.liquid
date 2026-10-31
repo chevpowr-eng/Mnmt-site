@@ -20,78 +20,62 @@
 
   {%- if customer and trade_access == 'true' -%}
     {%- liquid
-      assign year = 'now' | date: '%Y'
-      assign month = 'now' | date: '%m' | plus: 0
-      assign q = month | minus: 1 | divided_by: 3 | plus: 1
-      assign q_month = q | minus: 1 | times: 3 | plus: 1
-      if q_month < 10
-        assign q_start_str = year | append: '-0' | append: q_month | append: '-01'
-      else
-        assign q_start_str = year | append: '-' | append: q_month | append: '-01'
-      endif
-      assign q_start = q_start_str | date: '%s' | plus: 0
-      assign y_start = year | append: '-01-01' | date: '%s' | plus: 0
-      assign q_spend = 0
-      assign y_spend = 0
+      assign m = customer.metafields.mnmt
+      assign my_code = m.specifier_code.value | upcase | strip
+      assign my_link = shop.url | append: '/?s=' | append: my_code
     -%}
+    <p class="portal__hello">Welcome back, {{ customer.first_name | default: customer.name }}.</p>
 
-    {%- paginate customer.orders by 50 -%}
-      {%- for order in customer.orders -%}
-        {%- if order.cancelled or order.financial_status != 'paid' -%}{%- continue -%}{%- endif -%}
-        {%- assign placed = order.created_at | date: '%s' | plus: 0 -%}
-        {%- assign net = order.subtotal_price | minus: order.total_refunded_amount -%}
-        {%- if placed >= y_start -%}{%- assign y_spend = y_spend | plus: net -%}{%- endif -%}
-        {%- if placed >= q_start -%}{%- assign q_spend = q_spend | plus: net -%}{%- endif -%}
-      {%- endfor -%}
-
-      {%- assign q_reward = q_spend | times: rate | divided_by: 100 -%}
-      {%- assign y_reward = y_spend | times: rate | divided_by: 100 -%}
-
-      <p class="portal__hello">Welcome back, {{ customer.first_name | default: customer.name }}.</p>
+    {%- if my_code != blank -%}
+      <h2 class="portal__subhead">Your specifier link</h2>
+      <p class="portal__note">Send this link to your clients and builders. Every order placed through it, or with code <strong>{{ my_code }}</strong> at checkout, is credited to you.</p>
+      <div class="portal__link">
+        <code data-copy-source>{{ my_link }}</code>
+        <button type="button" class="button button--ghost" data-copy>Copy link</button>
+      </div>
 
       <div class="portal__stats">
         <div class="portal__stat">
-          <span class="portal__label">Q{{ q }} {{ year }} purchases</span>
-          <strong>{{ q_spend | money }}</strong>
+          <span class="portal__label">Specified sales this quarter</span>
+          <strong>{{ m.reward_q_sales.value | default: 0 | money }}</strong>
         </div>
         <div class="portal__stat portal__stat--accent">
           <span class="portal__label">Cash earned this quarter</span>
-          <strong>{{ q_reward | money }}</strong>
+          <strong>{{ m.reward_q_earned.value | default: 0 | money }}</strong>
         </div>
         <div class="portal__stat">
-          <span class="portal__label">Earned in {{ year }}</span>
-          <strong>{{ y_reward | money }}</strong>
+          <span class="portal__label">Earned this year</span>
+          <strong>{{ m.reward_y_earned.value | default: 0 | money }}</strong>
         </div>
       </div>
-
       <p class="portal__note">
-        You earn {{ rate }}% cash back on paid orders placed through your specifier account, before tax.
-        We pay each quarter by Zelle or check within 30 days of quarter end.
-        {%- unless customer.tags contains 'w9-on-file' %} <strong>We need a W-9 on file before your first payout.</strong> Reply to your approval email or bring one to the showroom.{%- endunless -%}
+        {%- if m.reward_updated.value != blank -%}Updated {{ m.reward_updated.value | date: '%b %-d, %Y' }}. {% endif -%}
+        You earn {{ rate }}% cash back on paid orders credited to your code, before tax. We pay each quarter by Zelle or check within 30 days of quarter end.
+        {%- unless customer.tags contains 'w9-on-file' %} <strong>We need a W-9 on file before your first payout.</strong>{%- endunless -%}
       </p>
+    {%- else -%}
+      <p class="portal__note">Your specifier link is being set up. We'll email you when it's ready.</p>
+    {%- endif -%}
 
-      <h2 class="portal__subhead">Recent orders</h2>
-      {%- if customer.orders.size > 0 -%}
-        <table class="cart__table portal__orders">
-          <thead><tr><th>Order</th><th>Date</th><th>Status</th><th class="cart__total-col">Subtotal</th></tr></thead>
-          <tbody>
-            {%- for order in customer.orders limit: 10 -%}
-              <tr>
-                <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
-                <td>{{ order.created_at | date: '%b %-d, %Y' }}</td>
-                <td>{% if order.cancelled %}Cancelled{% else %}{{ order.financial_status_label }}{% endif %}</td>
-                <td class="cart__total-col">{{ order.subtotal_price | money }}</td>
-              </tr>
-            {%- endfor -%}
-          </tbody>
-        </table>
-      {%- else -%}
-        <p>No orders yet. Your rewards start with your first order.</p>
-      {%- endif -%}
-    {%- endpaginate -%}
+    {%- if customer.orders.size > 0 -%}
+      <h2 class="portal__subhead">Your orders</h2>
+      <table class="cart__table portal__orders">
+        <thead><tr><th>Order</th><th>Date</th><th>Status</th><th class="cart__total-col">Subtotal</th></tr></thead>
+        <tbody>
+          {%- for order in customer.orders limit: 10 -%}
+            <tr>
+              <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+              <td>{{ order.created_at | date: '%b %-d, %Y' }}</td>
+              <td>{% if order.cancelled %}Cancelled{% else %}{{ order.financial_status_label }}{% endif %}</td>
+              <td class="cart__total-col">{{ order.subtotal_price | money }}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    {%- endif -%}
 
     <div class="button-row">
-      <a class="button" href="{{ routes.collections_url }}">Shop materials</a>
+      <a class="button" href="{{ routes.collections_url }}">Browse materials</a>
       {%- if settings.quote_page != blank -%}<a class="button button--ghost" href="{{ settings.quote_page.url }}">Request a quote</a>{%- endif -%}
       <a class="button button--ghost" href="{{ routes.account_url }}">Account</a>
     </div>
@@ -103,12 +87,12 @@
   {%- else -%}
     <ol class="portal__steps">
       <li><strong>Apply</strong><span>Apply once for your studio. It's free.</span></li>
-      <li><strong>Order</strong><span>Order at specifier pricing.</span></li>
-      <li><strong>Track</strong><span>See your orders and program benefits in one place.</span></li>
+      <li><strong>Share</strong><span>Send clients and builders your personal link.</span></li>
+      <li><strong>Track</strong><span>See every order specified under your name.</span></li>
     </ol>
     <div class="button-row">
       <a class="button" href="{{ routes.account_login_url }}">Log in</a>
-      {%- if settings.trade_page != blank -%}<a class="button button--ghost" href="{{ settings.trade_page.url }}">Apply for trade access</a>{%- endif -%}
+      {%- if settings.trade_page != blank -%}<a class="button button--ghost" href="{{ settings.trade_page.url }}">Apply</a>{%- endif -%}
     </div>
   {%- endif -%}
 </section>

@@ -309,3 +309,13 @@ img, svg { display: block; max-width: 100%; height: auto; }
 .portal__steps li::before { content: "0" counter(step); font-size: 0.75rem; letter-spacing: 0.12em; color: var(--color-muted); }
 .field--check { display: flex; gap: 0.6rem; align-items: flex-start; }
 .field--check input { margin-top: 0.2rem; }
+.specifier { border: 1px solid var(--color-border); padding: 1.25rem; margin: 1.5rem 0; display: grid; gap: 0.75rem; }
+.specifier__credited { margin: 0; }
+.specifier__editor[hidden], .specifier__error[hidden], .specifier__credited[hidden] { display: none; }
+.specifier__input { text-transform: uppercase; max-width: 16rem; }
+.specifier__status { margin: 0.25rem 0 0; font-size: 0.875rem; color: var(--color-muted); min-height: 1.2em; }
+.specifier__none { display: flex; gap: 0.5rem; align-items: center; font-size: 0.875rem; }
+.specifier__error { margin: 0; color: #9b2c1f; font-size: 0.875rem; }
+.link-button { background: none; border: 0; padding: 0; margin-left: 0.75rem; font: inherit; text-decoration: underline; cursor: pointer; color: inherit; }
+.portal__link { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.portal__link code { font-family: inherit; background: var(--color-surface); padding: 0.6rem 0.8rem; border: 1px solid var(--color-border); word-break: break-all; }

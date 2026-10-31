@@ -110,3 +110,106 @@ document.querySelectorAll('[data-prefill-param]').forEach((input) => {
   const value = params.get(input.dataset.prefillParam);
   if (value && !input.value) input.value = value;
 });
+
+// Specifier credit: a designer's personal link (?s=CODE) tags the cart with their
+// code so the order is credited to them. The cart page shows who is credited.
+const Specifier = {
+  key: 'mnmt_specifier',
+  list: window.MNMT_SPECIFIERS || {},
+  normalize(code) {
+    return String(code || '').trim().toUpperCase();
+  },
+  isValid(code) {
+    return Object.prototype.hasOwnProperty.call(this.list, this.normalize(code));
+  },
+  remembered() {
+    try { return localStorage.getItem(this.key) || ''; } catch (e) { return ''; }
+  },
+  remember(code) {
+    try { localStorage.setItem(this.key, code); } catch (e) { /* storage blocked */ }
+  },
+  save(code) {
+    return fetch('/cart/update.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ attributes: { Specifier: code } }),
+    });
+  },
+  init() {
+    const params = new URLSearchParams(window.location.search);
+    const fromLink = this.normalize(params.get('s'));
+    if (fromLink && this.isValid(fromLink)) {
+      this.remember(fromLink);
+      this.save(fromLink);
+      return;
+    }
+    const remembered = this.remembered();
+    if (remembered && this.isValid(remembered)) this.save(remembered);
+  },
+};
+Specifier.init();
+
+document.querySelectorAll('[data-specifier]').forEach((root) => {
+  const form = root.closest('form');
+  const input = root.querySelector('[data-specifier-input]');
+  const none = root.querySelector('[data-specifier-none]');
+  const status = root.querySelector('[data-specifier-status]');
+  const credited = root.querySelector('[data-specifier-credited]');
+  const editor = root.querySelector('[data-specifier-editor]');
+  const change = root.querySelector('[data-specifier-change]');
+  const error = root.querySelector('[data-specifier-error]');
+  const hidden = root.querySelector('[data-specifier-value]');
+
+  const remembered = Specifier.remembered();
+  if (input && !input.value && remembered && Specifier.isValid(remembered)) input.value = remembered;
+  if (input && !input.value && Specifier.isValid(window.MNMT_OWN_SPECIFIER)) input.value = window.MNMT_OWN_SPECIFIER;
+
+  const sync = () => {
+    const code = Specifier.normalize(input?.value);
+    if (none?.checked) {
+      hidden.value = 'None';
+      status.textContent = '';
+    } else if (Specifier.isValid(code)) {
+      hidden.value = code;
+      status.textContent = `Specified by ${Specifier.list[code]}`;
+      Specifier.remember(code);
+    } else {
+      hidden.value = '';
+      status.textContent = code ? 'We don\'t recognise that code.' : '';
+    }
+    if (input) input.disabled = !!none?.checked;
+    error.hidden = true;
+  };
+
+  input?.addEventListener('input', sync);
+  none?.addEventListener('change', sync);
+  change?.addEventListener('click', () => {
+    credited.hidden = true;
+    editor.hidden = false;
+    input?.focus();
+  });
+  if (editor && !editor.hidden) sync();
+
+  form?.addEventListener('submit', (event) => {
+    const submitter = event.submitter;
+    if (!submitter || submitter.name !== 'checkout') return;
+    if (hidden.value) return;
+    event.preventDefault();
+    error.hidden = false;
+    editor.hidden = false;
+    if (credited) credited.hidden = true;
+    input?.focus();
+  });
+});
+
+document.querySelectorAll('[data-copy]').forEach((button) => {
+  button.addEventListener('click', async () => {
+    const text = button.parentElement.querySelector('[data-copy-source]')?.textContent.trim();
+    try {
+      await navigator.clipboard.writeText(text);
+      button.textContent = 'Copied';
+    } catch (e) {
+      button.textContent = 'Select and copy';
+    }
+  });
+});
