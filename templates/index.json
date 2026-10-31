@@ -1,0 +1,37 @@
+{
+  "sections": {
+    "hero": { "type": "hero", "settings": {} },
+    "materials": {
+      "type": "collection-tiles",
+      "settings": { "heading": "Materials", "text": "<p>Four families of surface, all made by hand or quarried, never mass produced.</p>" },
+      "blocks": {
+        "tile-1": { "type": "tile", "settings": { "title": "Handmade tile" } },
+        "tile-2": { "type": "tile", "settings": { "title": "Natural stone and zellige" } },
+        "tile-3": { "type": "tile", "settings": { "title": "Plaster and tadelakt" } },
+        "tile-4": { "type": "tile", "settings": { "title": "Microcement" } }
+      },
+      "block_order": ["tile-1", "tile-2", "tile-3", "tile-4"]
+    },
+    "featured": { "type": "featured-collection", "settings": { "heading": "New in the showroom" } },
+    "studio": {
+      "type": "image-with-text",
+      "settings": {
+        "eyebrow": "Design studio",
+        "heading": "Specify in person",
+        "button_label": "Book a consult"
+      }
+    },
+    "install": {
+      "type": "image-with-text",
+      "settings": {
+        "image_right": true,
+        "eyebrow": "Supply and install",
+        "heading": "Plaster applied by our own crew",
+        "text": "<p>Our applicators are trained by New Age Artisans in lime plaster and tadelakt. We supply the material and finish the walls.</p>",
+        "button_label": "Request a quote"
+      }
+    },
+    "trade": { "type": "trade-cta", "settings": {} }
+  },
+  "order": ["hero", "materials", "featured", "studio", "install", "trade"]
+}

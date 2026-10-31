@@ -1,0 +1,36 @@
+{%- comment -%}
+  Product card for grids. Accepts: product
+{%- endcomment -%}
+{%- assign special_order = product.metafields.mnmt.special_order.value -%}
+<article class="card">
+  <a class="card__link" href="{{ product.url }}">
+    <div class="card__media">
+      {%- if product.featured_media -%}
+        {{
+          product.featured_media
+          | image_url: width: 900
+          | image_tag:
+            loading: 'lazy',
+            widths: '300, 450, 600, 900',
+            sizes: '(min-width: 990px) 25vw, (min-width: 600px) 33vw, 50vw',
+            alt: product.featured_media.alt
+            | default: product.title
+        }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'card__placeholder' }}
+      {%- endif -%}
+      {%- if special_order -%}<span class="card__badge">Special order</span>{%- endif -%}
+    </div>
+    <div class="card__body">
+      <p class="card__vendor">{{ product.vendor }}</p>
+      <h3 class="card__title">{{ product.title }}</h3>
+      {%- if product.variants.size > 1 -%}
+        {%- assign color_option = product.options_with_values | where: 'name', 'Color' | first -%}
+        {%- if color_option -%}
+          <p class="card__meta">{{ color_option.values.size }} colors</p>
+        {%- endif -%}
+      {%- endif -%}
+      {% render 'price', product: product %}
+    </div>
+  </a>
+</article>

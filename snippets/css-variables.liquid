@@ -1,0 +1,22 @@
+{%- comment -%}
+  Design tokens from theme settings. Everything in base.css reads these.
+{%- endcomment -%}
+<style>
+  :root {
+    --font-heading: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+    --font-heading-weight: {{ settings.type_heading_font.weight }};
+    --font-body: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+    --font-body-weight: {{ settings.type_body_font.weight }};
+
+    --color-bg: {{ settings.color_background }};
+    --color-surface: {{ settings.color_surface }};
+    --color-text: {{ settings.color_text }};
+    --color-muted: {{ settings.color_muted }};
+    --color-accent: {{ settings.color_accent }};
+    --color-accent-contrast: {{ settings.color_accent_contrast }};
+    --color-border: {{ settings.color_border }};
+
+    --page-width: {{ settings.page_width }}px;
+    --gutter: clamp(1rem, 4vw, 3rem);
+  }
+</style>

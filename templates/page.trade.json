@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": { "type": "main-page", "settings": {} },
+    "form": {
+      "type": "contact-form",
+      "settings": {
+        "form_type": "Trade application",
+        "heading": "Apply for a trade account",
+        "message_label": "Tell us about your current projects",
+        "button_label": "Submit application",
+        "success_message": "Thanks for applying. We review applications within two business days."
+      }
+    }
+  },
+  "order": ["main", "form"]
+}

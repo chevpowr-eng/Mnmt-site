@@ -1,0 +1,17 @@
+{%- layout none -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Gift card &ndash; {{ shop.name }}</title>
+    {{ content_for_header }}
+  </head>
+  <body>
+    <main>
+      <h1>{{ shop.name }} gift card</h1>
+      <p>{{ gift_card.balance | money }}</p>
+      <p>Code: {{ gift_card.code | format_code }}</p>
+    </main>
+  </body>
+</html>

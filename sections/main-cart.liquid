@@ -1,0 +1,57 @@
+<section class="section page-width page-width--narrow">
+  <h1>Your order</h1>
+  {%- if cart.item_count > 0 -%}
+    <form action="{{ routes.cart_url }}" method="post" class="cart">
+      <table class="cart__table">
+        <thead>
+          <tr><th>Item</th><th>Quantity</th><th class="cart__total-col">Total</th></tr>
+        </thead>
+        <tbody>
+          {%- for item in cart.items -%}
+            <tr>
+              <td>
+                <a href="{{ item.url }}" class="cart__item">
+                  {%- if item.image -%}{{ item.image | image_url: width: 160 | image_tag: loading: 'lazy', class: 'cart__thumb' }}{%- endif -%}
+                  <span>
+                    <span class="cart__vendor">{{ item.vendor }}</span>
+                    {{ item.product.title }}
+                    {%- unless item.product.has_only_default_variant -%}<span class="cart__variant">{{ item.variant.title }}</span>{%- endunless -%}
+                  </span>
+                </a>
+              </td>
+              <td>
+                <label class="visually-hidden" for="Qty-{{ item.key }}">Quantity</label>
+                <input id="Qty-{{ item.key }}" class="input input--qty" type="number" name="updates[]" value="{{ item.quantity }}" min="0">
+              </td>
+              <td class="cart__total-col">{{ item.final_line_price | money }}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+
+      <label class="field">
+        <span>Order notes (project name, delivery window, site contact)</span>
+        <textarea class="input" name="note" rows="3">{{ cart.note }}</textarea>
+      </label>
+
+      <div class="cart__footer">
+        <p class="cart__subtotal">Subtotal <strong>{{ cart.total_price | money }}</strong></p>
+        <p class="cart__hint">Tax and shipping or freight are calculated at checkout.</p>
+        <div class="button-row">
+          <button class="button button--ghost" type="submit" name="update">Update</button>
+          <button class="button" type="submit" name="checkout">Check out</button>
+        </div>
+      </div>
+    </form>
+  {%- else -%}
+    <p>Your order is empty.</p>
+    <a class="button" href="{{ routes.collections_url }}">Browse materials</a>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

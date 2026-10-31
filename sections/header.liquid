@@ -1,0 +1,57 @@
+<header class="header">
+  <div class="header__inner page-width">
+    <a class="header__logo" href="{{ routes.root_url }}">
+      {%- if settings.logo != blank -%}
+        {{
+          settings.logo
+          | image_url: width: 600
+          | image_tag: width: settings.logo_width, alt: shop.name, loading: 'eager'
+        }}
+      {%- else -%}
+        <span class="header__wordmark">{{ shop.name }}</span>
+      {%- endif -%}
+    </a>
+
+    <button class="header__toggle" type="button" aria-controls="HeaderNav" aria-expanded="false" data-nav-toggle>
+      <span class="visually-hidden">Menu</span>
+      <span class="header__toggle-bar"></span>
+      <span class="header__toggle-bar"></span>
+    </button>
+
+    <nav id="HeaderNav" class="header__nav" aria-label="Main">
+      <ul class="header__menu">
+        {%- for link in section.settings.menu.links -%}
+          <li class="header__item{% if link.links != blank %} header__item--parent{% endif %}">
+            <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+            {%- if link.links != blank -%}
+              <ul class="header__submenu">
+                {%- for child in link.links -%}
+                  <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      <div class="header__actions">
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{{ routes.account_url }}">{% if customer %}Account{% else %}Trade login{% endif %}</a>
+        {%- endif -%}
+        <a href="{{ routes.cart_url }}" class="header__cart">
+          Cart{% if cart.item_count > 0 %} <span class="header__cart-count">{{ cart.item_count }}</span>{% endif %}
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+  ]
+}
+{% endschema %}

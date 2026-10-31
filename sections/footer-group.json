@@ -1,0 +1,15 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "menu": { "type": "menu", "settings": { "heading": "Information", "menu": "footer" } },
+        "visit": { "type": "text", "settings": { "heading": "Visit", "text": "<p>Showroom visits by appointment. Monday to Friday.</p>" } }
+      },
+      "block_order": ["menu", "visit"]
+    }
+  },
+  "order": ["footer"]
+}

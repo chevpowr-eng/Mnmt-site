@@ -1,0 +1,64 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "MNMT",
+    "theme_version": "0.1.0",
+    "theme_author": "MNMT",
+    "theme_documentation_url": "https://mnmt.co",
+    "theme_support_url": "https://mnmt.co"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Logo" },
+      { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 300, "step": 10, "unit": "px", "default": 140 },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" },
+      { "type": "text", "id": "tagline", "label": "Tagline", "default": "Handmade tile, stone and artisan plaster for the trade" }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "color", "id": "color_background", "label": "Background", "default": "#F4F1EC" },
+      { "type": "color", "id": "color_surface", "label": "Surface", "default": "#EAE4DA" },
+      { "type": "color", "id": "color_text", "label": "Text", "default": "#2A2622" },
+      { "type": "color", "id": "color_muted", "label": "Muted text", "default": "#6E655B" },
+      { "type": "color", "id": "color_accent", "label": "Accent", "default": "#2A2622" },
+      { "type": "color", "id": "color_accent_contrast", "label": "Text on accent", "default": "#F4F1EC" },
+      { "type": "color", "id": "color_border", "label": "Borders", "default": "#D6CEC2" }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      { "type": "font_picker", "id": "type_heading_font", "label": "Headings", "default": "cormorant_n4" },
+      { "type": "font_picker", "id": "type_body_font", "label": "Body", "default": "work_sans_n4" }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      { "type": "range", "id": "page_width", "label": "Page width", "min": 1000, "max": 1600, "step": 20, "unit": "px", "default": 1320 }
+    ]
+  },
+  {
+    "name": "Trade program",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Prices are shown only to logged-in customers tagged with the trade tag below, or to customers assigned to a B2B company."
+      },
+      { "type": "text", "id": "trade_tag", "label": "Approved trade customer tag", "default": "trade-approved" },
+      { "type": "text", "id": "trade_gate_message", "label": "Message shown instead of price", "default": "Trade pricing available to approved designers and builders." },
+      { "type": "page", "id": "trade_page", "label": "Trade program page" },
+      { "type": "page", "id": "quote_page", "label": "Request a quote page" }
+    ]
+  },
+  {
+    "name": "Product pages",
+    "settings": [
+      { "type": "range", "id": "overage_percent", "label": "Coverage calculator overage", "min": 0, "max": 25, "step": 1, "unit": "%", "default": 10 },
+      { "type": "text", "id": "sample_option_value", "label": "Variant value that marks a sample", "default": "Sample" }
+    ]
+  }
+]

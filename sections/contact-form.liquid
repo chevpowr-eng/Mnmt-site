@@ -1,0 +1,105 @@
+{%- comment -%}
+  Shopify contact form used for the trade application and quote requests.
+  Submissions are emailed to the store's sender address; the form type is
+  added to the message body so Adam can tell them apart.
+{%- endcomment -%}
+<section class="section page-width page-width--narrow">
+  {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading }}</h2>{%- endif -%}
+  {%- if section.settings.text != blank -%}<div class="rte">{{ section.settings.text }}</div>{%- endif -%}
+
+  {%- form 'contact', class: 'form', id: section.id -%}
+    {%- if form.posted_successfully? -%}
+      <p class="notice notice--success" role="status">{{ section.settings.success_message }}</p>
+    {%- endif -%}
+    {%- if form.errors -%}
+      <div class="notice notice--error" role="alert">{{ form.errors | default_errors }}</div>
+    {%- endif -%}
+
+    <input type="hidden" name="contact[form]" value="{{ section.settings.form_type }}">
+
+    <div class="form__grid">
+      <label class="field">
+        <span>Name</span>
+        <input class="input" type="text" name="contact[name]" autocomplete="name" required value="{{ form.name }}">
+      </label>
+      <label class="field">
+        <span>Email</span>
+        <input class="input" type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}">
+      </label>
+      <label class="field">
+        <span>Phone</span>
+        <input class="input" type="tel" name="contact[phone]" autocomplete="tel" value="{{ form.phone }}">
+      </label>
+      <label class="field">
+        <span>Company</span>
+        <input class="input" type="text" name="contact[company]" autocomplete="organization">
+      </label>
+
+      {%- if section.settings.form_type == 'Trade application' -%}
+        <label class="field">
+          <span>Business type</span>
+          <select class="input" name="contact[business_type]" required>
+            <option value="">Choose one</option>
+            <option>Interior designer</option>
+            <option>Architect</option>
+            <option>Builder or general contractor</option>
+            <option>Tile or plaster installer</option>
+            <option>Retailer</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Website or portfolio</span>
+          <input class="input" type="url" name="contact[website]">
+        </label>
+        <label class="field">
+          <span>Resale certificate or tax ID (optional)</span>
+          <input class="input" type="text" name="contact[resale_id]">
+        </label>
+      {%- else -%}
+        <label class="field">
+          <span>Product or line</span>
+          <input class="input" type="text" name="contact[product]" data-prefill-param="product">
+        </label>
+        <label class="field">
+          <span>Approximate quantity (sq ft)</span>
+          <input class="input" type="number" min="0" name="contact[quantity]">
+        </label>
+        <label class="field">
+          <span>Project location</span>
+          <input class="input" type="text" name="contact[location]">
+        </label>
+      {%- endif -%}
+
+      <label class="field field--full">
+        <span>{{ section.settings.message_label }}</span>
+        <textarea class="input" name="contact[body]" rows="5">{{ form.body }}</textarea>
+      </label>
+    </div>
+
+    <button class="button" type="submit">{{ section.settings.button_label }}</button>
+  {%- endform -%}
+</section>
+
+{% schema %}
+{
+  "name": "Contact form",
+  "settings": [
+    {
+      "type": "select",
+      "id": "form_type",
+      "label": "Form type",
+      "options": [
+        { "value": "Trade application", "label": "Trade application" },
+        { "value": "Quote request", "label": "Quote request" }
+      ],
+      "default": "Quote request"
+    },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Request a quote" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "message_label", "label": "Message label", "default": "Project details" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send" },
+    { "type": "text", "id": "success_message", "label": "Success message", "default": "Thanks. We will reply within one business day." }
+  ],
+  "presets": [{ "name": "Contact form" }]
+}
+{% endschema %}

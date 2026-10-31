@@ -1,0 +1,32 @@
+<section class="section page-width">
+  <h1>Search</h1>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="search-form">
+    <label class="visually-hidden" for="SearchInput">Search</label>
+    <input id="SearchInput" class="input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search tile, stone, plaster">
+    <input type="hidden" name="type" value="product">
+    <button class="button" type="submit">Search</button>
+  </form>
+
+  {%- if search.performed -%}
+    <p class="search-count">{{ search.results_count }} results for &ldquo;{{ search.terms | escape }}&rdquo;</p>
+    {%- paginate search.results by 24 -%}
+      <div class="grid">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            {% render 'product-card', product: item %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <nav class="pagination" aria-label="Pagination">{{ paginate | default_pagination }}</nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": []
+}
+{% endschema %}

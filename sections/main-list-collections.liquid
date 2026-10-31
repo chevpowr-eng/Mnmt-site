@@ -1,0 +1,28 @@
+<section class="section page-width">
+  <div class="section__header"><h1>{{ section.settings.heading }}</h1></div>
+  <div class="tiles tiles--3">
+    {%- for collection in collections -%}
+      {%- unless collection.handle == 'frontpage' or collection.all_products_count == 0 -%}
+        <a class="tile" href="{{ collection.url }}">
+          <div class="tile__media">
+            {%- if collection.featured_image -%}
+              {{ collection.featured_image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400, 700, 1000', sizes: '(min-width: 990px) 33vw, 50vw' }}
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: 'tile__placeholder' }}
+            {%- endif -%}
+          </div>
+          <p class="tile__title">{{ collection.title }}</p>
+        </a>
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collections list",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Materials" }
+  ]
+}
+{% endschema %}

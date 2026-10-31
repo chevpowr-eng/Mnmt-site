@@ -1,0 +1,29 @@
+{%- comment -%}
+  Spec table from mnmt.* metafields. Rows with no value are skipped.
+  Accepts: product, variant
+{%- endcomment -%}
+{%- liquid
+  assign mf = product.metafields.mnmt
+  assign vmf = variant.metafields.mnmt
+-%}
+{%- capture rows -%}
+  {%- if product.type != blank -%}<tr><th>Material</th><td>{{ product.type }}</td></tr>{%- endif -%}
+  {%- if mf.finish != blank -%}<tr><th>Finish</th><td>{{ mf.finish.value }}</td></tr>{%- endif -%}
+  {%- if mf.thickness != blank -%}<tr><th>Thickness</th><td>{{ mf.thickness.value }}</td></tr>{%- endif -%}
+  {%- if mf.application != blank -%}<tr><th>Application</th><td>{{ mf.application.value }}</td></tr>{%- endif -%}
+  {%- if mf.wet_area_rated.value -%}<tr><th>Wet areas</th><td>Rated for showers and wet areas</td></tr>{%- endif -%}
+  {%- if vmf.sqft_per_box != blank -%}<tr><th>Coverage</th><td>{{ vmf.sqft_per_box.value }} sq ft per box</td></tr>{%- endif -%}
+  {%- if vmf.pieces_per_box != blank -%}<tr><th>Pieces per box</th><td>{{ vmf.pieces_per_box.value }}</td></tr>{%- endif -%}
+  {%- if variant.weight > 0 -%}<tr><th>Weight</th><td>{{ variant.weight | weight_with_unit }}</td></tr>{%- endif -%}
+  {%- if mf.lead_time != blank -%}<tr><th>Lead time</th><td>{{ mf.lead_time.value }}</td></tr>{%- endif -%}
+  {%- if mf.origin != blank -%}<tr><th>Made in</th><td>{{ mf.origin.value }}</td></tr>{%- endif -%}
+{%- endcapture -%}
+{%- if rows != blank -%}
+  <table class="specs">
+    <caption class="specs__caption">Specifications</caption>
+    <tbody>{{ rows }}</tbody>
+  </table>
+{%- endif -%}
+{%- if mf.spec_sheet != blank -%}
+  <p><a class="link-arrow" href="{{ mf.spec_sheet.value.url }}" target="_blank" rel="noopener">Download spec sheet</a></p>
+{%- endif -%}

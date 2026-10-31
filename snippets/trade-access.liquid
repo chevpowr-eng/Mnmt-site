@@ -1,0 +1,19 @@
+{%- comment -%}
+  Sets `trade_access` to true when the visitor may see trade pricing:
+  a customer on a B2B company, or a customer carrying the approved trade tag.
+  Outputs "true" when allowed, so callers capture it:
+  {% capture trade_access %}{% render 'trade-access' %}{% endcapture %}
+{%- endcomment -%}
+{%- liquid
+  assign trade_access = false
+  if customer
+    if customer.b2b?
+      assign trade_access = true
+    elsif customer.tags contains settings.trade_tag
+      assign trade_access = true
+    endif
+  endif
+  if trade_access
+    echo 'true'
+  endif
+-%}

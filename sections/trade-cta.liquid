@@ -1,0 +1,28 @@
+<section class="cta">
+  <div class="cta__inner page-width">
+    <div>
+      <h2>{{ section.settings.heading }}</h2>
+      <div class="rte">{{ section.settings.text }}</div>
+    </div>
+    <div class="button-row">
+      {%- if customer == blank -%}
+        <a class="button button--inverse" href="{{ settings.trade_page.url | default: routes.root_url }}">{{ section.settings.apply_label }}</a>
+        <a class="button button--ghost-inverse" href="{{ routes.account_login_url }}">Log in</a>
+      {%- else -%}
+        <a class="button button--inverse" href="{{ routes.collections_url }}">Browse materials</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trade call to action",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Open a trade account" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Designers and builders get trade pricing, sample ordering, project quotes and showroom appointments.</p>" },
+    { "type": "text", "id": "apply_label", "label": "Apply button label", "default": "Apply for trade" }
+  ],
+  "presets": [{ "name": "Trade call to action" }]
+}
+{% endschema %}

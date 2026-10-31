@@ -1,0 +1,34 @@
+{%- comment -%}
+  Price, gated to trade accounts.
+  - product / variant: the item to price (variant optional)
+  - unit_label: optional suffix such as "box"
+  - show_gate_message: true shows the trade message when pricing is hidden
+{%- endcomment -%}
+{%- liquid
+  capture trade_access
+    render 'trade-access'
+  endcapture
+  assign target = variant | default: product.selected_or_first_available_variant
+-%}
+<div class="price" data-price>
+  {%- if trade_access == 'true' -%}
+    <span class="price__amount">
+      {%- if variant == blank and product.price_varies -%}From {% endif -%}
+      {{ target.price | money }}
+    </span>
+    {%- if unit_label != blank -%}<span class="price__unit"> / {{ unit_label }}</span>{%- endif -%}
+    {%- if target.compare_at_price > target.price -%}
+      <s class="price__compare">{{ target.compare_at_price | money }}</s>
+    {%- endif -%}
+  {%- elsif show_gate_message -%}
+    <p class="price__gate">
+      {{ settings.trade_gate_message }}
+      {%- if customer -%}
+        <span class="price__gate-note">Your trade application is under review.</span>
+      {%- else -%}
+        <a href="{{ routes.account_login_url }}">Log in</a>
+        {%- if settings.trade_page != blank %} or <a href="{{ settings.trade_page.url }}">apply</a>{% endif -%}
+      {%- endif -%}
+    </p>
+  {%- endif -%}
+</div>
