@@ -65,7 +65,7 @@
       </div>
 
       <p class="portal__note">
-        You earn {{ rate }}% cash back on paid orders placed through your trade account, before tax.
+        You earn {{ rate }}% cash back on paid orders placed through your specifier account, before tax.
         We pay each quarter by Zelle or check within 30 days of quarter end.
         {%- unless customer.tags contains 'w9-on-file' %} <strong>We need a W-9 on file before your first payout.</strong> Reply to your approval email or bring one to the showroom.{%- endunless -%}
       </p>
@@ -97,13 +97,13 @@
     </div>
 
   {%- elsif customer -%}
-    <p class="portal__note">Your trade application is under review. Once you're approved, this page shows your purchases and the cash you've earned.</p>
+    <p class="portal__note">Your specifier application is under review. Once you're approved, this page shows your purchases and the cash you've earned.</p>
     {%- if settings.trade_page != blank -%}<a class="button button--ghost" href="{{ settings.trade_page.url }}">Trade program</a>{%- endif -%}
 
   {%- else -%}
     <ol class="portal__steps">
-      <li><strong>Apply</strong><span>Open a free trade account for your studio.</span></li>
-      <li><strong>Order</strong><span>Buy at trade pricing through your account.</span></li>
+      <li><strong>Apply</strong><span>Apply once for your studio. It's free.</span></li>
+      <li><strong>Order</strong><span>Order at specifier pricing.</span></li>
       <li><strong>Track</strong><span>See your orders and program benefits in one place.</span></li>
     </ol>
     <div class="button-row">
@@ -120,7 +120,7 @@
     { "type": "text", "id": "public_heading", "label": "Heading (logged out)", "default": "For designers and specifiers" },
     { "type": "richtext", "id": "public_intro", "label": "Intro (logged out)", "info": "Keep reward details out of this text; only approved accounts see them.", "default": "<p>Approved trade accounts log in here to track orders and program benefits.</p>" },
     { "type": "text", "id": "heading", "label": "Heading (approved accounts)", "default": "Your cash back" },
-    { "type": "richtext", "id": "intro", "label": "Intro", "default": "<p>Specify MNMT materials and earn cash on every order placed through your trade account.</p>" }
+    { "type": "richtext", "id": "intro", "label": "Intro", "default": "<p>Specify MNMT materials and earn cash on every order placed through your specifier account.</p>" }
   ]
 }
 {% endschema %}

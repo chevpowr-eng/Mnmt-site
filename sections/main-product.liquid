@@ -73,7 +73,7 @@
       {%- else -%}
         {%- assign sample_variant = product.variants | where: 'option3', sample_value | first -%}
         {%- if sample_variant -%}
-          <p class="product__sample-note">Samples are available to approved trade accounts.</p>
+          <p class="product__sample-note">Samples are available to approved specifiers.</p>
         {%- endif -%}
       {%- endif -%}
     {%- endform -%}

@@ -24,7 +24,7 @@
     <p class="price__gate">
       {{ settings.trade_gate_message }}
       {%- if customer -%}
-        <span class="price__gate-note">Your trade application is under review.</span>
+        <span class="price__gate-note">Your specifier application is under review.</span>
       {%- else -%}
         <a href="{{ routes.account_login_url }}">Log in</a>
         {%- if settings.trade_page != blank %} or <a href="{{ settings.trade_page.url }}">apply</a>{% endif -%}

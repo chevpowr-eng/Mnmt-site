@@ -5,7 +5,7 @@
       "type": "contact-form",
       "settings": {
         "form_type": "Trade application",
-        "heading": "Apply for a trade account",
+        "heading": "Become a specifier",
         "message_label": "Tell us about your current projects",
         "button_label": "Submit application",
         "success_message": "Thanks for applying. We review applications within two business days."

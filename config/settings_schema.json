@@ -148,7 +148,7 @@
         "type": "text",
         "id": "trade_gate_message",
         "label": "Message shown instead of price",
-        "default": "Trade pricing available to approved designers and builders."
+        "default": "Purchasing is open to approved specifiers."
       },
       {
         "type": "page",

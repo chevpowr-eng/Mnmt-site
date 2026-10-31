@@ -39,8 +39,8 @@
       <div class="header__actions">
         {%- assign portal_url = settings.specifier_page.url | default: '/pages/specifier-portal' -%}
         <a href="{{ portal_url }}" class="header__portal">Specifier portal</a>
-        {%- if shop.customer_accounts_enabled -%}
-          <a href="{{ routes.account_url }}">{% if customer %}Account{% else %}Trade login{% endif %}</a>
+        {%- if customer -%}
+          <a href="{{ routes.account_url }}">Account</a>
         {%- endif -%}
         <a href="{{ routes.cart_url }}" class="header__cart">
           Cart{% if cart.item_count > 0 %} <span class="header__cart-count">{{ cart.item_count }}</span>{% endif %}
