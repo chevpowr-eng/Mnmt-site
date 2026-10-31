@@ -21,7 +21,8 @@
         "tile-2": {
           "type": "tile",
           "settings": {
-            "title": "Natural stone and zellige"
+            "title": "Natural stone and zellige",
+            "collection": "casablanca-zellige"
           }
         },
         "tile-3": {
