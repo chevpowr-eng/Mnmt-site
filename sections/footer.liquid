@@ -1,6 +1,7 @@
 <footer class="footer">
   <div class="footer__inner page-width">
     <div class="footer__brand">
+      <img class="footer__mark" src="{{ 'mnmt-mark.png' | asset_url }}" alt="" width="48" height="41" loading="lazy">
       <p class="footer__name">{{ shop.name }}</p>
       {%- if settings.tagline != blank -%}<p class="footer__tagline">{{ settings.tagline }}</p>{%- endif -%}
       {%- if section.settings.address != blank -%}

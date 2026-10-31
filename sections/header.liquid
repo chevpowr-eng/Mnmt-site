@@ -9,6 +9,7 @@
           | image_tag: width: settings.logo_width, alt: shop.name, loading: 'eager'
         }}
       {%- else -%}
+        <img class="header__mark" src="{{ 'mnmt-mark.png' | asset_url }}" alt="" width="40" height="35">
         <span class="header__wordmark">{{ shop.name }}</span>
       {%- endif -%}
     </a>
