@@ -10,36 +10,118 @@
   {
     "name": "Brand",
     "settings": [
-      { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Leave empty to use the logo from Settings > Brand." },
-      { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 300, "step": 10, "unit": "px", "default": 140 },
-      { "type": "image_picker", "id": "favicon", "label": "Favicon" },
-      { "type": "text", "id": "tagline", "label": "Tagline", "default": "Handmade tile, stone and artisan plaster for the trade" }
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo",
+        "info": "Leave empty to use the logo from Settings > Brand."
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo width",
+        "min": 60,
+        "max": 300,
+        "step": 10,
+        "unit": "px",
+        "default": 140
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "text",
+        "id": "tagline",
+        "label": "Tagline",
+        "default": "Handmade tile, stone and artisan plaster for the trade"
+      }
     ]
   },
   {
     "name": "Colors",
     "settings": [
-      { "type": "color", "id": "color_background", "label": "Background", "default": "#F4F1EC" },
-      { "type": "checkbox", "id": "plaster_texture", "label": "Tadelakt plaster texture on background", "default": true },
-      { "type": "color", "id": "color_surface", "label": "Surface", "default": "#EAE4DA" },
-      { "type": "color", "id": "color_text", "label": "Text", "default": "#2A2622" },
-      { "type": "color", "id": "color_muted", "label": "Muted text", "default": "#6E655B" },
-      { "type": "color", "id": "color_accent", "label": "Accent", "default": "#2A2622" },
-      { "type": "color", "id": "color_accent_contrast", "label": "Text on accent", "default": "#F4F1EC" },
-      { "type": "color", "id": "color_border", "label": "Borders", "default": "#D6CEC2" }
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background",
+        "default": "#F4F1EC"
+      },
+      {
+        "type": "checkbox",
+        "id": "plaster_texture",
+        "label": "Tadelakt plaster texture on background",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Surface",
+        "default": "#EAE4DA"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#2A2622"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Muted text",
+        "default": "#6E655B"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent",
+        "default": "#2A2622"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_contrast",
+        "label": "Text on accent",
+        "default": "#F4F1EC"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Borders",
+        "default": "#D6CEC2"
+      }
     ]
   },
   {
     "name": "Typography",
     "settings": [
-      { "type": "font_picker", "id": "type_heading_font", "label": "Headings", "default": "josefin_sans_n4" },
-      { "type": "font_picker", "id": "type_body_font", "label": "Body", "default": "josefin_sans_n4" }
+      {
+        "type": "font_picker",
+        "id": "type_heading_font",
+        "label": "Headings",
+        "default": "josefin_sans_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "Body",
+        "default": "josefin_sans_n4"
+      }
     ]
   },
   {
     "name": "Layout",
     "settings": [
-      { "type": "range", "id": "page_width", "label": "Page width", "min": 1000, "max": 1600, "step": 20, "unit": "px", "default": 1320 }
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Page width",
+        "min": 1000,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "default": 1320
+      }
     ]
   },
   {
@@ -49,18 +131,80 @@
         "type": "paragraph",
         "content": "Tile prices are shown only to logged-in customers tagged with the trade tag below, or to customers assigned to a B2B company. Products with the public price tag (merch) are priced and sold to everyone."
       },
-      { "type": "text", "id": "trade_tag", "label": "Approved trade customer tag", "default": "trade-approved" },
-      { "type": "text", "id": "public_price_tag", "label": "Product tag for items anyone can buy", "info": "Use for merch like hats and tees.", "default": "public-price" },
-      { "type": "text", "id": "trade_gate_message", "label": "Message shown instead of price", "default": "Trade pricing available to approved designers and builders." },
-      { "type": "page", "id": "trade_page", "label": "Trade program page" },
-      { "type": "page", "id": "quote_page", "label": "Request a quote page" }
+      {
+        "type": "text",
+        "id": "trade_tag",
+        "label": "Approved trade customer tag",
+        "default": "trade-approved"
+      },
+      {
+        "type": "text",
+        "id": "public_price_tag",
+        "label": "Product tag for items anyone can buy",
+        "info": "Use for merch like hats and tees.",
+        "default": "public-price"
+      },
+      {
+        "type": "text",
+        "id": "trade_gate_message",
+        "label": "Message shown instead of price",
+        "default": "Trade pricing available to approved designers and builders."
+      },
+      {
+        "type": "page",
+        "id": "trade_page",
+        "label": "Trade program page"
+      },
+      {
+        "type": "page",
+        "id": "quote_page",
+        "label": "Request a quote page"
+      }
+    ]
+  },
+  {
+    "name": "Specifier rewards",
+    "settings": [
+      {
+        "type": "range",
+        "id": "reward_percent",
+        "label": "Cash back",
+        "min": 1,
+        "max": 15,
+        "step": 1,
+        "unit": "%",
+        "default": 5
+      },
+      {
+        "type": "page",
+        "id": "specifier_page",
+        "label": "Specifier portal page"
+      },
+      {
+        "type": "paragraph",
+        "content": "Tag a customer w9-on-file once you have their W-9 so the portal stops asking for one."
+      }
     ]
   },
   {
     "name": "Product pages",
     "settings": [
-      { "type": "range", "id": "overage_percent", "label": "Coverage calculator overage", "min": 0, "max": 25, "step": 1, "unit": "%", "default": 10 },
-      { "type": "text", "id": "sample_option_value", "label": "Variant value that marks a sample", "default": "Sample" }
+      {
+        "type": "range",
+        "id": "overage_percent",
+        "label": "Coverage calculator overage",
+        "min": 0,
+        "max": 25,
+        "step": 1,
+        "unit": "%",
+        "default": 10
+      },
+      {
+        "type": "text",
+        "id": "sample_option_value",
+        "label": "Variant value that marks a sample",
+        "default": "Sample"
+      }
     ]
   }
 ]

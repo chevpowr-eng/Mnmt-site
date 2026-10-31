@@ -1,0 +1,119 @@
+{%- comment -%}
+  Specifier portal: designer cash rewards.
+  Approved trade accounts see this quarter's purchases and the cash reward earned.
+  The reward rate comes from the theme setting "Specifier rewards > Cash back".
+{%- endcomment -%}
+{%- capture trade_access -%}{% render 'trade-access' %}{%- endcapture -%}
+{%- assign rate = settings.reward_percent | default: 5 -%}
+
+<section class="section page-width page-width--narrow portal">
+  <div class="section__header">
+    <p class="eyebrow">Specifier portal</p>
+    <h1>{{ section.settings.heading }}</h1>
+    <div class="section__intro rte">{{ section.settings.intro }}</div>
+  </div>
+
+  {%- if customer and trade_access == 'true' -%}
+    {%- liquid
+      assign year = 'now' | date: '%Y'
+      assign month = 'now' | date: '%m' | plus: 0
+      assign q = month | minus: 1 | divided_by: 3 | plus: 1
+      assign q_month = q | minus: 1 | times: 3 | plus: 1
+      if q_month < 10
+        assign q_start_str = year | append: '-0' | append: q_month | append: '-01'
+      else
+        assign q_start_str = year | append: '-' | append: q_month | append: '-01'
+      endif
+      assign q_start = q_start_str | date: '%s' | plus: 0
+      assign y_start = year | append: '-01-01' | date: '%s' | plus: 0
+      assign q_spend = 0
+      assign y_spend = 0
+    -%}
+
+    {%- paginate customer.orders by 50 -%}
+      {%- for order in customer.orders -%}
+        {%- if order.cancelled or order.financial_status != 'paid' -%}{%- continue -%}{%- endif -%}
+        {%- assign placed = order.created_at | date: '%s' | plus: 0 -%}
+        {%- assign net = order.subtotal_price | minus: order.total_refunded_amount -%}
+        {%- if placed >= y_start -%}{%- assign y_spend = y_spend | plus: net -%}{%- endif -%}
+        {%- if placed >= q_start -%}{%- assign q_spend = q_spend | plus: net -%}{%- endif -%}
+      {%- endfor -%}
+
+      {%- assign q_reward = q_spend | times: rate | divided_by: 100 -%}
+      {%- assign y_reward = y_spend | times: rate | divided_by: 100 -%}
+
+      <p class="portal__hello">Welcome back, {{ customer.first_name | default: customer.name }}.</p>
+
+      <div class="portal__stats">
+        <div class="portal__stat">
+          <span class="portal__label">Q{{ q }} {{ year }} purchases</span>
+          <strong>{{ q_spend | money }}</strong>
+        </div>
+        <div class="portal__stat portal__stat--accent">
+          <span class="portal__label">Cash earned this quarter</span>
+          <strong>{{ q_reward | money }}</strong>
+        </div>
+        <div class="portal__stat">
+          <span class="portal__label">Earned in {{ year }}</span>
+          <strong>{{ y_reward | money }}</strong>
+        </div>
+      </div>
+
+      <p class="portal__note">
+        You earn {{ rate }}% cash back on paid orders placed through your trade account, before tax.
+        We pay each quarter by Zelle or check within 30 days of quarter end.
+        {%- unless customer.tags contains 'w9-on-file' %} <strong>We need a W-9 on file before your first payout.</strong> Reply to your approval email or bring one to the showroom.{%- endunless -%}
+      </p>
+
+      <h2 class="portal__subhead">Recent orders</h2>
+      {%- if customer.orders.size > 0 -%}
+        <table class="cart__table portal__orders">
+          <thead><tr><th>Order</th><th>Date</th><th>Status</th><th class="cart__total-col">Subtotal</th></tr></thead>
+          <tbody>
+            {%- for order in customer.orders limit: 10 -%}
+              <tr>
+                <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+                <td>{{ order.created_at | date: '%b %-d, %Y' }}</td>
+                <td>{% if order.cancelled %}Cancelled{% else %}{{ order.financial_status_label }}{% endif %}</td>
+                <td class="cart__total-col">{{ order.subtotal_price | money }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      {%- else -%}
+        <p>No orders yet. Your rewards start with your first order.</p>
+      {%- endif -%}
+    {%- endpaginate -%}
+
+    <div class="button-row">
+      <a class="button" href="{{ routes.collections_url }}">Shop materials</a>
+      {%- if settings.quote_page != blank -%}<a class="button button--ghost" href="{{ settings.quote_page.url }}">Request a quote</a>{%- endif -%}
+      <a class="button button--ghost" href="{{ routes.account_url }}">Account</a>
+    </div>
+
+  {%- elsif customer -%}
+    <p class="portal__note">Your trade application is under review. Once you're approved, this page shows your purchases and the cash you've earned.</p>
+    {%- if settings.trade_page != blank -%}<a class="button button--ghost" href="{{ settings.trade_page.url }}">Trade program</a>{%- endif -%}
+
+  {%- else -%}
+    <ol class="portal__steps">
+      <li><strong>Apply</strong><span>Open a free trade account for your studio.</span></li>
+      <li><strong>Order</strong><span>Buy at trade pricing through your account.</span></li>
+      <li><strong>Get paid</strong><span>Earn {{ rate }}% cash back, paid every quarter.</span></li>
+    </ol>
+    <div class="button-row">
+      <a class="button" href="{{ routes.account_login_url }}">Log in</a>
+      {%- if settings.trade_page != blank -%}<a class="button button--ghost" href="{{ settings.trade_page.url }}">Apply for trade access</a>{%- endif -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Specifier portal",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Cash back for designers" },
+    { "type": "richtext", "id": "intro", "label": "Intro", "default": "<p>Specify MNMT materials and earn cash on every order placed through your trade account.</p>" }
+  ]
+}
+{% endschema %}

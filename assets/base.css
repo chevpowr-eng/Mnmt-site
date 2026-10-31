@@ -292,3 +292,20 @@ img, svg { display: block; max-width: 100%; height: auto; }
 /* Rich text */
 .rte p:first-child { margin-top: 0; }
 .rte img { margin: 1.5rem 0; }
+
+/* Specifier portal */
+.header__portal { font-weight: 700; }
+.eyebrow { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-muted); margin: 0 0 0.5rem; }
+.portal__hello { font-size: 1.125rem; }
+.portal__stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+.portal__stat { border: 1px solid var(--color-border); background: color-mix(in srgb, var(--color-bg) 85%, transparent); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.portal__stat strong { font-size: 1.75rem; font-weight: 400; }
+.portal__stat--accent { background: var(--color-accent); color: var(--color-accent-contrast); border-color: var(--color-accent); }
+.portal__label { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.8; }
+.portal__note { color: var(--color-muted); max-width: 60ch; }
+.portal__subhead { margin-top: 2.5rem; }
+.portal__steps { list-style: none; padding: 0; margin: 2rem 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; counter-reset: step; }
+.portal__steps li { border-top: 1px solid var(--color-text); padding-top: 1rem; display: flex; flex-direction: column; gap: 0.35rem; counter-increment: step; }
+.portal__steps li::before { content: "0" counter(step); font-size: 0.75rem; letter-spacing: 0.12em; color: var(--color-muted); }
+.field--check { display: flex; gap: 0.6rem; align-items: flex-start; }
+.field--check input { margin-top: 0.2rem; }
