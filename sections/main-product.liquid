@@ -28,6 +28,9 @@
     {%- if special_order -%}
       <p class="notice">Special order. Lead time {{ product.metafields.mnmt.lead_time.value | default: 'quoted on request' }}.</p>
     {%- endif -%}
+    {%- unless current_variant.requires_shipping -%}
+      <p class="product__pickup">Showroom pickup only. We'll contact you when your order is ready.</p>
+    {%- endunless -%}
 
     {%- form 'product', product, class: 'product__form', data-product-form: '' -%}
       <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>

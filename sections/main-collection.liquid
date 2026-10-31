@@ -5,7 +5,7 @@
   </div>
 
   {%- paginate collection.products by section.settings.per_page -%}
-    <div class="collection">
+    <div class="collection{% if collection.filters != empty %} collection--filtered{% endif %}">
       {%- if collection.filters != empty -%}
         <form class="filters" data-filters>
           {%- for filter in collection.filters -%}

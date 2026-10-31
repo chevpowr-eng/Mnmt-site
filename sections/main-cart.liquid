@@ -36,7 +36,11 @@
 
       <div class="cart__footer">
         <p class="cart__subtotal">Subtotal <strong>{{ cart.total_price | money }}</strong></p>
-        <p class="cart__hint">Tax and shipping or freight are calculated at checkout.</p>
+        {%- assign needs_shipping = cart.items | where: 'requires_shipping', true | size -%}
+        <p class="cart__hint">
+          {%- if needs_shipping > 0 -%}Tax and shipping are calculated at checkout.
+          {%- else -%}Tax is calculated at checkout. Tile orders are picked up at our showroom; we'll contact you when your order is ready.{%- endif -%}
+        </p>
         <div class="button-row">
           <button class="button button--ghost" type="submit" name="update">Update</button>
           <button class="button" type="submit" name="checkout">Check out</button>
