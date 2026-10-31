@@ -26,9 +26,11 @@
 
     {% render 'meta-tags' %}
 
-    {{ settings.type_heading_font | font_face: font_display: 'swap' }}
-    {{ settings.type_body_font | font_face: font_display: 'swap' }}
-    {{ settings.type_body_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+    <style>
+      {{ settings.type_heading_font | font_face: font_display: 'swap' }}
+      {{ settings.type_body_font | font_face: font_display: 'swap' }}
+      {{ settings.type_body_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+    </style>
 
     {% render 'css-variables' %}
     {{ 'base.css' | asset_url | stylesheet_tag }}
