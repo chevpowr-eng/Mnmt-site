@@ -86,7 +86,10 @@ class ProductForm {
     }
     const boxes = Math.ceil((area * (1 + this.overage)) / perBox);
     const covered = (boxes * perBox).toFixed(1);
-    this.calcResult.textContent = `${boxes} ${boxes === 1 ? 'box' : 'boxes'} (${covered} sq ft)`;
+    const perSqft = /sq\s*ft/i.test(this.variant.unit || '');
+    this.calcResult.textContent = perSqft
+      ? `Order ${boxes} sq ft`
+      : `${boxes} ${boxes === 1 ? 'box' : 'boxes'} (${covered} sq ft)`;
     if (this.quantity) this.quantity.value = boxes;
   }
 
