@@ -9,8 +9,13 @@
 <section class="section page-width page-width--narrow portal">
   <div class="section__header">
     <p class="eyebrow">Specifier portal</p>
-    <h1>{{ section.settings.heading }}</h1>
-    <div class="section__intro rte">{{ section.settings.intro }}</div>
+    {%- if customer and trade_access == 'true' -%}
+      <h1>{{ section.settings.heading }}</h1>
+      <div class="section__intro rte">{{ section.settings.intro }}</div>
+    {%- else -%}
+      <h1>{{ section.settings.public_heading }}</h1>
+      <div class="section__intro rte">{{ section.settings.public_intro }}</div>
+    {%- endif -%}
   </div>
 
   {%- if customer and trade_access == 'true' -%}
@@ -99,7 +104,7 @@
     <ol class="portal__steps">
       <li><strong>Apply</strong><span>Open a free trade account for your studio.</span></li>
       <li><strong>Order</strong><span>Buy at trade pricing through your account.</span></li>
-      <li><strong>Get paid</strong><span>Earn {{ rate }}% cash back, paid every quarter.</span></li>
+      <li><strong>Track</strong><span>See your orders and program benefits in one place.</span></li>
     </ol>
     <div class="button-row">
       <a class="button" href="{{ routes.account_login_url }}">Log in</a>
@@ -112,7 +117,9 @@
 {
   "name": "Specifier portal",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Cash back for designers" },
+    { "type": "text", "id": "public_heading", "label": "Heading (logged out)", "default": "For designers and specifiers" },
+    { "type": "richtext", "id": "public_intro", "label": "Intro (logged out)", "info": "Keep reward details out of this text; only approved accounts see them.", "default": "<p>Approved trade accounts log in here to track orders and program benefits.</p>" },
+    { "type": "text", "id": "heading", "label": "Heading (approved accounts)", "default": "Your cash back" },
     { "type": "richtext", "id": "intro", "label": "Intro", "default": "<p>Specify MNMT materials and earn cash on every order placed through your trade account.</p>" }
   ]
 }
