@@ -1,4 +1,4 @@
-// MNMT theme behaviour: mobile nav, product variant picker, coverage calculator,
+// Limekiln Mercantile theme behaviour: mobile nav, product variant picker, coverage calculator,
 // collection filters, and quote-form prefill.
 
 document.querySelectorAll('[data-nav-toggle]').forEach((toggle) => {

@@ -1,6 +1,6 @@
-# MNMT Shopify theme
+# Limekiln Mercantile Shopify theme
 
-Custom Online Store 2.0 theme for mnmt.co, a trade-only showroom for handmade tile,
+Custom Online Store 2.0 theme for limekilnmerc.com (formerly mnmt.co), a trade-only showroom for handmade tile,
 natural stone, artisan plaster and microcement.
 
 ## What it does
@@ -15,7 +15,7 @@ natural stone, artisan plaster and microcement.
 
 ## Metafields
 
-Create these definitions in Settings > Custom data. Namespace is `mnmt`.
+Create these definitions in Settings > Custom data. Namespace is `mnmt` (kept from the old name on purpose; renaming it would mean re-entering every product's data).
 
 | Owner | Key | Type | Used for |
 | --- | --- | --- | --- |
