@@ -77,7 +77,7 @@
     "merch": {
       "type": "featured-collection",
       "settings": {
-        "heading": "MNMT goods",
+        "heading": "Limekiln goods",
         "limit": 4,
         "collection": "mnmt-goods"
       }
