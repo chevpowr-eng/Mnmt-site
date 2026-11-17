@@ -2,11 +2,20 @@
   Design tokens from theme settings. Everything in base.css reads these.
 {%- endcomment -%}
 <style>
+  @font-face {
+    font-family: 'Cutive Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('https://fonts.gstatic.com/s/cutivemono/v23/m8JWjfRfY7WVjVi2E-K9H6RCTm4.woff2') format('woff2');
+  }
   :root {
     --font-heading: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
     --font-heading-weight: {{ settings.type_heading_font.weight }};
     --font-body: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
     --font-body-weight: {{ settings.type_body_font.weight }};
+    /* Typewriter accent for prices, SKUs and spec labels (closest web match to IBM Prestige Elite). */
+    --font-type: 'Cutive Mono', 'Courier New', Courier, monospace;
 
     --color-bg: {{ settings.color_background }};
     --color-surface: {{ settings.color_surface }};
@@ -24,4 +33,20 @@
     --texture: none;
     {%- endif %}
   }
+
+  /* Typewriter accent: prices, SKUs, spec tables and small labels in Cutive Mono,
+     the closest free web match to IBM Prestige Elite. Main text stays in the theme font.
+     Selectors start with body so they win over base.css, which loads after this. */
+  body :is(.price, .price__amount, .price__unit, .price__compare,
+    .card__meta, .card__badge, .card__vendor, .specs, .specs__caption,
+    .option__label, .option__label span, .calc__label, .calc__result, .calc__hint,
+    .sku, .eyebrow, .specifier__input) {
+    font-family: var(--font-type);
+  }
+  body :is(.card__badge, .card__vendor, .specs__caption, .option__label, .calc__label, .eyebrow) { letter-spacing: 0.06em; }
+  /* Cutive Mono runs light and small, like 12-pitch type, so prices go up a touch. */
+  body .price__amount { font-size: 1.0625rem; }
+  body .product .price__amount { font-size: 1.5rem; }
+  body .sku { margin: 0.25rem 0 0.75rem; font-size: 0.875rem; color: var(--color-muted); letter-spacing: 0.04em; }
+  body .sku[hidden] { display: none; }
 </style>

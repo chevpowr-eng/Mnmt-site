@@ -99,13 +99,13 @@
         "type": "font_picker",
         "id": "type_heading_font",
         "label": "Headings",
-        "default": "josefin_sans_n4"
+        "default": "libre_caslon_text_n4"
       },
       {
         "type": "font_picker",
         "id": "type_body_font",
         "label": "Body",
-        "default": "josefin_sans_n4"
+        "default": "libre_caslon_text_n4"
       }
     ]
   },
