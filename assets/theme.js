@@ -49,6 +49,7 @@ class ProductForm {
     if (this.idInput && match) this.idInput.value = match.id;
     this.updateButton();
     this.updatePrice();
+    this.updateSku();
     this.updateCalc();
     this.updateMedia();
     if (match) {
@@ -63,6 +64,14 @@ class ProductForm {
     const available = this.variant && this.variant.available;
     this.addButton.disabled = !available;
     this.addButton.textContent = !this.variant ? 'Unavailable' : available ? 'Add to order' : 'Out of stock';
+  }
+
+  updateSku() {
+    const sku = this.root.querySelector('[data-sku]');
+    if (!sku) return;
+    const value = this.variant ? this.variant.sku : '';
+    sku.textContent = value;
+    sku.parentElement.hidden = !value;
   }
 
   updatePrice() {
