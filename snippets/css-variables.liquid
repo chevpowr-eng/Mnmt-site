@@ -49,4 +49,9 @@
   body .product .price__amount { font-size: 1.5rem; }
   body .sku { margin: 0.25rem 0 0.75rem; font-size: 0.875rem; color: var(--color-muted); letter-spacing: 0.04em; }
   body .sku[hidden] { display: none; }
+
+  /* Limekiln Mercantile logo in the header and footer (see snippets/limekiln-logo.liquid). */
+  body .header__logo-svg { display: block; height: 22px; width: auto; color: var(--color-text); }
+  body .footer__logo-svg { display: block; height: 18px; width: auto; max-width: 100%; margin-bottom: 1rem; color: var(--color-text); }
+  @media (max-width: 749px) { body .header__logo-svg { height: 14px; } }
 </style>
